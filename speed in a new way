@@ -4,20 +4,16 @@
 
 from math import sqrt
 
-class Wave():
+class Wave_0():
 
-    def __init__(self, V_0, f_0, m_0, Z_0, V, f, m, Z):
+    def __init__(self, V_0, f_0, m_0, Z_0):
         self.tension_0=V_0
         self.frequency_0=f_0
         self.mass_0=m_0
         self.impedance_0=Z_0
-        self.tension=V
-        self.frequency=f
-        self.mass=m
-        self.impedance=Z
 
     def max_speed_0(self):
-        #for speedControlUnit
+        #for speedControlBus_0
         if(self.tension_0==0 or self.frequency_0==0 or self.mass_0==0 or self.impedance_0==0):
             pass
         else:
@@ -25,15 +21,23 @@ class Wave():
             return(max_speed_0)
 
     def nominal_speed_0(self):
-        #for speedControlUnit
+        #for speedControlBus_0
         if(self.tension_0==0 or self.frequency_0==0 or self.mass_0==0 or self.impedance_0==0):
             pass
         else:
             mominal_speed_0=self.tension_0/sqrt(2*self.frequency_0*self.mass_0*self.impedance_0)
             return(nominal_speed_0)
 
+class Wave():
+
+    def __init__(self, V, f, m, Z):
+        self.tension=V
+        self.frequency=f
+        self.mass=m
+        self.impedance=Z
+
     def max_speed(self):
-        #for speedControlUnit
+        #for speedControlBus
         if(self.tension==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
             pass
         else:
@@ -41,7 +45,7 @@ class Wave():
             return(max_speed)
 
     def nominal_speed(self):
-        #for speedControlUnit
+        #for speedControlBus
         if(self.tension==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
             pass
         else:
