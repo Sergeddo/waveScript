@@ -51,101 +51,85 @@ class Wave():
         else:
             nominal_speed=self.tension/sqrt(2*self.frequency*self.mass*self.impedance)
             return(nominal_speed)
-"""    
-    def dV(self):
-        #for tensionControlUnit
-        dTension=tension1-tension0
-        tension=tension1
-        return(dTension, tension)
 
-    def df(frequency0, frequency1):
-        #for frequencyControlUnit
-        dFrequency=frequency1-frequency0
-        frequency=frequency1
-        return(dFrequency, frequency)
+class Variation():
+    #for presenceControlBus
+    def __init__(self, measure_0, measure):
+        self.measure_0=measure_0
+        self.measure=measure
 
-    def dm(mass0, mass1):
-        #for massControlUnit
-        dMass=mass1-mass0
-        mass=mass1
-        return(dMass, mass)
-
-    def dZ(impedance0, impedance1):
-        #for impedanceControlUnit
-        dImpedance=impedance1-impedance0
-        impedance=impedance1
-        return(dImpedance, impedance)
-
-    def delta_speed(dTension, dFrequency, dMass, dImpedance):
-        #for speedControlUnit
-        if(dTension==0 or dFrequency==0 or dMass==0 or dImpedance==0):
-            pass
+    def solve(self):
+        if(self.measure_0!=0):
+            delta=self.measure-self.measure_0
+            return(delta)
         else:
-            dV=dTension
-            df=dFrequency
-            dm=dMass
-            dZ=dImpedance
-            dw=dV/sqrt(df*dm*dZ)
-            return(dw)
+            return None
 
-    def speedDivergence(V, f, m, Z):
-        #for nominalSpeedControlUnit
-        if(V==0 or f==0 or m==0 or Z==0):
-            pass
+class Divergence():
+    def __init__(self, w, V, f, m, Z):
+        self.speed=w
+        self.tension=V
+        self.frequency=f
+        self.mass=m
+        self.impedance=Z
+
+    def for_speed(self):
+        #for nominalSpeedControl
+        if(self.tension==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
+            return None
         else:
-            pdV=1/sqrt(f*m*Z)
-            pdf=-V/(2*f*sqrt(f*m*Z))
-            pdm=-V/(2*m*sqrt(f*m*Z))
-            pdZ=-V/(2*Z*sqrt(f*m*Z))
+            pdV=1/sqrt(self.frequency*self.mass*self.impedance)
+            pdf=-self.tension/(2*self.frequency*sqrt(self.frequency*self.mass*self.impedance))
+            pdm=-self.tension/(2*self.mass*sqrt(self.frequency*self.mass*self.impedance))
+            pdZ=-self.tension/(2*self.impedance*sqrt(self.frequency*self.mass*self.impedance))
             divergencew=pdV+pdf+pdm+pdZ
             return(divergencew)
 
-    def tensionDivergence(w, f, m, Z):
-        #for nominalTensionControlUnit
-        if(w==0 or f==0 or m==0 or Z==0):
-            pass
+    def for_tension(self):
+        #for nominalTensionControl
+        if(self.speed==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
+            return None
         else:
-            pdw=sqrt(f*m*Z)
-            pdf=(w*sqrt(m*Z))/(2*sqrt(f))
-            pdm=(w*sqrt(f*Z))/(2*sqrt(m))
-            pdZ=(w*sqrt(f*m))/(2*sqrt(Z))
+            pdw=sqrt(self.frequency*self.mass*self.impedance)
+            pdf=(self.speed*sqrt(self.mass*self.impedance))/(2*sqrt(self.frequency))
+            pdm=(self.speed*sqrt(self.frequency*self.impedance))/(2*sqrt(self.mass))
+            pdZ=(self.speed*sqrt(self.frequency*self.mass))/(2*sqrt(self.impedance))
             divergenceV=pdw+pdf+pdm+pdZ
             return(divergenceV)
 
-    def frequencyDivergence(w, V, m, Z):
-        #for nominalFrequencyControlUnit
-        if(w==0 or V==0 or m==0 or Z==0):
-            pass
+    def for_frequency(self):
+        #for nominalFrequencyControl
+        if(self.speed==0 or self.tension==0 or self.mass==0 or self.impedance==0):
+            return None
         else:
-            pdV=(2*V)/(m*Z*w**2)
-            pdm=-(V**2)/(m**2*Z*w**2)
-            pdZ=-(V**2)/(m*Z**2*w**2)
-            pdw=-(2*V**2)/(m*Z*w**3)
+            pdV=(2*self.tension)/(self.mass*self.impedance*self.speed**2)
+            pdm=-(self.tension**2)/(self.mass**2*self.impedance*self.speed**2)
+            pdZ=-(self.tension**2)/(self.mass*self.impedance**2*self.speed**2)
+            pdw=-(2*self.tension**2)/(self.mass*self.impedance*self.speed**3)
             divergencef=pdV+pdm+pdZ+pdw
             return(divergencef)
 
-    def massDivergence(w, V, f, Z):
-        #for nominalMassControlUnit
-        if(w==0 or V==0 or f==0 or Z==0):
-            pass
+    def for_mass(self):
+        #for nominalMassControl
+        if(self.speed==0 or self.tension==0 or self.frequency==0 or self.impedance==0):
+            return None
         else:
-            pdV=(2*V)/(f*Z*w**2)
-            pdf=-(V**2)/(f**2*Z*w**2)
-            pdZ=-(V**2)/(f*Z**2*w**2)
-            pdw=-(2*V**2)/(f*Z*w**3)
+            pdV=(2*self.tension)/(self.frequency*self.impedance*self.speed**2)
+            pdf=-(self.tension**2)/(self.frequency**2*self.impedance*self.speed**2)
+            pdZ=-(self.tension**2)/(self.frequency*self.impedance**2*self.speed**2)
+            pdw=-(2*self.tension**2)/(self.frequency*self.impedance*self.speed**3)
             divergencem=pdV+pdf+pdZ+pdw
             return(divergencem)
 
-    def impedanceDivergence(w, V, f, m):
-        #for nominalImpedanceControlUnit
-        if(w==0 or V==0 or f==0 or m==0):
-            pass
+    def for_impedance(self):
+        #for nominalImpedanceControl
+        if(self.speed==0 or self.tension==0 or self.frequency==0 or self.mass==0):
+            return None
         else:
-            pdV=(2*V)/(f*m*w**2)
-            pdf=-(V**2)/(f**2*m*w**2)
-            pdm=-(V**2)/(f*m**2*w**2)
-            pdw=-(2*V**2)/(f*m*w**3)
+            pdV=(2*self.tension)/(self.frequency*self.mass*self.speed**2)
+            pdf=-(self.tension**2)/(self.frequency**2*self.mass*self.speed**2)
+            pdm=-(self.tension**2)/(self.frequency*self.mass**2*self.speed**2)
+            pdw=-(2*self.tension**2)/(self.frequency*self.mass*self.speed**3)
             divergenceZ=pdV+pdm+pdf+pdw
             return(divergenceZ)
-
-"""
+            
