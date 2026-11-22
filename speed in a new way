@@ -4,28 +4,6 @@
 
 from math import sqrt
 
-class Wave_0():
-    #for speedControlBus_0
-    def __init__(self, V_0, f_0, m_0, Z_0):
-        self.tension_0=V_0
-        self.frequency_0=f_0
-        self.mass_0=m_0
-        self.impedance_0=Z_0
-
-    def max_speed_0(self):
-        if(self.tension_0==0 or self.frequency_0==0 or self.mass_0==0 or self.impedance_0==0):
-            pass
-        else:
-            max_speed_0=self.tension_0/sqrt(self.frequency_0*self.mass_0*self.impedance_0)
-            return(max_speed_0)
-
-    def nominal_speed_0(self):
-        if(self.tension_0==0 or self.frequency_0==0 or self.mass_0==0 or self.impedance_0==0):
-            pass
-        else:
-            mominal_speed_0=self.tension_0/sqrt(2*self.frequency_0*self.mass_0*self.impedance_0)
-            return(nominal_speed_0)
-
 class Wave():
     #for speedControlBus
     def __init__(self, V, f, m, Z):
