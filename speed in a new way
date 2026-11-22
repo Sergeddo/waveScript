@@ -5,7 +5,7 @@
 from math import sqrt
 
 class Wave_0():
-
+    #for speedControlBus_0
     def __init__(self, V_0, f_0, m_0, Z_0):
         self.tension_0=V_0
         self.frequency_0=f_0
@@ -13,7 +13,6 @@ class Wave_0():
         self.impedance_0=Z_0
 
     def max_speed_0(self):
-        #for speedControlBus_0
         if(self.tension_0==0 or self.frequency_0==0 or self.mass_0==0 or self.impedance_0==0):
             pass
         else:
@@ -21,7 +20,6 @@ class Wave_0():
             return(max_speed_0)
 
     def nominal_speed_0(self):
-        #for speedControlBus_0
         if(self.tension_0==0 or self.frequency_0==0 or self.mass_0==0 or self.impedance_0==0):
             pass
         else:
@@ -29,7 +27,7 @@ class Wave_0():
             return(nominal_speed_0)
 
 class Wave():
-
+    #for speedControlBus
     def __init__(self, V, f, m, Z):
         self.tension=V
         self.frequency=f
@@ -37,7 +35,6 @@ class Wave():
         self.impedance=Z
 
     def max_speed(self):
-        #for speedControlBus
         if(self.tension==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
             pass
         else:
@@ -45,7 +42,6 @@ class Wave():
             return(max_speed)
 
     def nominal_speed(self):
-        #for speedControlBus
         if(self.tension==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
             pass
         else:
@@ -66,6 +62,7 @@ class Variation():
             return None
 
 class Divergence():
+    #for nominalControlBus
     def __init__(self, w, V, f, m, Z):
         self.speed=w
         self.tension=V
@@ -74,7 +71,6 @@ class Divergence():
         self.impedance=Z
 
     def for_speed(self):
-        #for nominalSpeedControl
         if(self.tension==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
             return None
         else:
@@ -86,7 +82,6 @@ class Divergence():
             return(divergencew)
 
     def for_tension(self):
-        #for nominalTensionControl
         if(self.speed==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
             return None
         else:
@@ -98,7 +93,6 @@ class Divergence():
             return(divergenceV)
 
     def for_frequency(self):
-        #for nominalFrequencyControl
         if(self.speed==0 or self.tension==0 or self.mass==0 or self.impedance==0):
             return None
         else:
@@ -110,7 +104,6 @@ class Divergence():
             return(divergencef)
 
     def for_mass(self):
-        #for nominalMassControl
         if(self.speed==0 or self.tension==0 or self.frequency==0 or self.impedance==0):
             return None
         else:
@@ -122,7 +115,6 @@ class Divergence():
             return(divergencem)
 
     def for_impedance(self):
-        #for nominalImpedanceControl
         if(self.speed==0 or self.tension==0 or self.frequency==0 or self.mass==0):
             return None
         else:
@@ -132,4 +124,3 @@ class Divergence():
             pdw=-(2*self.tension**2)/(self.frequency*self.mass*self.speed**3)
             divergenceZ=pdV+pdm+pdf+pdw
             return(divergenceZ)
-            
