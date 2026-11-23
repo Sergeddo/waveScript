@@ -1,6 +1,7 @@
-#arriving earlier than when you departed is prohibited, otherwise paradoxes occour;
-#backend hardware should always be "symmetrical" to frontend software;
-#this is just a sketch written in python programming language;
+# arriving earlier than when you departed is prohibited, otherwise paradoxes occour;
+# backend hardware should always be "symmetrical" to frontend software;
+# this is just a sketch written in python programming language;
+# E=-∇(ν*sqrt(2*f*m*Z));
 
 from math import sqrt
 
