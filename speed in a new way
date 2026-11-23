@@ -1,7 +1,7 @@
 # arriving earlier than when you departed is prohibited, otherwise paradoxes occour;
 # backend hardware should always be "symmetrical" to frontend software;
 # this is just a sketch written in python programming language;
-# V=ν*sqrt(2*f*m*Z);
+# V=w*sqrt(2*f*m*Z);
 
 from math import sqrt
 
