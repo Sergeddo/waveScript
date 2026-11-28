@@ -1,37 +1,37 @@
 # arriving earlier than when you departed is prohibited, otherwise paradoxes occour;
 # backend hardware should always be "symmetrical" to frontend software;
 # this is just a sketch written in python programming language;
-# speed per unit voltage: w/V=1/sqrt(f*m*Z) with (f,m,Z) as a (x,y,z) space; 
+# speed pulse per unit voltage: w/V=1/sqrt(f*m*Z) with (f,m,Z) as a (x,y,z) space;
 
 from math import sqrt
 
-class Wave():
+class Pulse():
     def __init__(self, f, m, Z):
         self.frequency=f
         self.mass=m
         self.impedance=Z
 
-    def max_speed_per_unit_voltage(self):
+    def max_pulse_per_unit_voltage(self):
         if(self.frequency==0 or self.mass==0 or self.impedance==0):
             return None
         else:
-            max_speed_per_unit_voltage=1/sqrt(self.frequency*self.mass*self.impedance)
-            return(max_speed_per_unit_voltage)
+            max_pulse=1/sqrt(self.frequency*self.mass*self.impedance)
+            return(max_pulse)
 
-    def nominal_speed_per_unit_voltage(self):
+    def nominal_pulse(self):
         if(self.frequency==0 or self.mass==0 or self.impedance==0):
             return None
         else:
-            nominal_speed_per_unit_voltage=1/sqrt(2*self.frequency*self.mass*self.impedance)
-            return(nominal_speed_per_unit_voltage)
+            nominal_pulse=1/sqrt(2*self.frequency*self.mass*self.impedance)
+            return(nominal_pulse)
 
-class Variation():
+class Delta():
     #for presenceControlBus
     def __init__(self, measure_0, measure):
         self.measure_0=measure_0
         self.measure=measure
 
-    def solve(self):
+    def variation(self):
         if(self.measure_0!=0):
             delta=self.measure-self.measure_0
             return(delta)
@@ -41,8 +41,8 @@ class Variation():
 class Divergence():
     #for nominalControlBus
     def __init__(self, w, V, f, m, Z):
-        self.speed=w
         self.tension=V
+        self.speed=w
         self.frequency=f
         self.mass=m
         self.impedance=Z
