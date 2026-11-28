@@ -1,31 +1,29 @@
 # arriving earlier than when you departed is prohibited, otherwise paradoxes occour;
 # backend hardware should always be "symmetrical" to frontend software;
 # this is just a sketch written in python programming language;
-# speed per unit voltage: w/V=1/sqrt(f*m*Z) with (f,m,Z) as a (x,y,z) space; 
+# # speed per unit voltage: w/V=1/sqrt(f*m*Z) with (f,m,Z) as a (x,y,z) space; 
 
 from math import sqrt
 
 class Wave():
-    #for speedControlBus
-    def __init__(self, V, f, m, Z):
-        self.tension=V
+    def __init__(self, f, m, Z):
         self.frequency=f
         self.mass=m
         self.impedance=Z
 
-    def max_speed(self):
-        if(self.tension==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
-            pass
+    def max_speed_per_unit_voltage(self):
+        if(self.frequency==0 or self.mass==0 or self.impedance==0):
+            return None
         else:
-            max_speed=self.tension/sqrt(self.frequency*self.mass*self.impedance)
-            return(max_speed)
+            max_speed_per_unit_voltage=1/sqrt(self.frequency*self.mass*self.impedance)
+            return(max_speed_per_unit_voltage)
 
-    def nominal_speed(self):
-        if(self.tension==0 or self.frequency==0 or self.mass==0 or self.impedance==0):
-            pass
+    def nominal_speed_per_unit_voltage(self):
+        if(self.frequency==0 or self.mass==0 or self.impedance==0):
+            return None
         else:
-            nominal_speed=self.tension/sqrt(2*self.frequency*self.mass*self.impedance)
-            return(nominal_speed)
+            nominal_speed_per_unit_voltage=1/sqrt(2*self.frequency*self.mass*self.impedance)
+            return(nominal_speed_per_unit_voltage)
 
 class Variation():
     #for presenceControlBus
